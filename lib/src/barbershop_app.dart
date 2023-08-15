@@ -1,6 +1,7 @@
 import 'package:asyncstate/widget/async_state_builder.dart';
 import 'package:flutter/material.dart';
 
+import 'core/theme/theme.dart';
 import 'core/widgets/app_loader.dart';
 import 'features/splash/splash_page.dart';
 
@@ -15,6 +16,7 @@ class BarbershopApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Barbershop',
+          theme: AppTheme.theme,
           navigatorObservers: [asyncNavigatorObserver],
           routes: {
             '/': (context) => const SplashPage(),
