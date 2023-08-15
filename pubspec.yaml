@@ -36,7 +36,9 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
 
+  asyncstate: ^2.0.2
   flutter_riverpod: ^2.3.6
+  loading_animation_widget: ^1.2.0+4
   riverpod_annotation: ^2.1.1
 
 dev_dependencies:
