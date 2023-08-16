@@ -2,48 +2,70 @@ import 'package:flutter/material.dart';
 
 import 'theme.dart';
 
-class AppTheme {
-  AppTheme._();
-
+sealed class AppTheme {
   static final defaultInputBorder = OutlineInputBorder(
-    borderRadius: BorderRadius.circular(7),
-    borderSide: BorderSide(color: AppColors.instance.grey),
+    borderRadius: BorderRadius.circular(8),
+    borderSide: const BorderSide(color: AppColors.greyDark),
   );
 
-  static final theme = ThemeData(
-    scaffoldBackgroundColor: AppColors.instance.background,
-    appBarTheme: AppBarTheme(
-      backgroundColor: AppColors.instance.background,
+  static final themeData = ThemeData(
+    useMaterial3: true,
+    scaffoldBackgroundColor: AppColors.background,
+    fontFamily: AppTextStyles.fontFamily,
+    textTheme: const TextTheme(
+      bodyLarge: TextStyle(color: AppColors.white),
+      bodyMedium: TextStyle(color: AppColors.white),
+    ),
+    appBarTheme: const AppBarTheme(
+      backgroundColor: AppColors.background,
+      foregroundColor: AppColors.white,
       elevation: 0,
       centerTitle: true,
-      iconTheme: IconThemeData(color: AppColors.instance.primary),
+      iconTheme: IconThemeData(color: AppColors.primary),
     ),
     colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.instance.primary,
-      primary: AppColors.instance.primary,
-      secondary: AppColors.instance.grey,
+      seedColor: AppColors.primary,
+      primary: AppColors.primary,
+      secondary: AppColors.grey,
     ),
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: AppStyles.instance.primaryButton,
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        backgroundColor: AppColors.primary,
+        foregroundColor: AppColors.white,
+        textStyle: AppTextStyles.textButtonLabel,
+        minimumSize: const Size.fromHeight(56),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        textStyle: AppTextStyles.textButton,
+      ),
     ),
     inputDecorationTheme: InputDecorationTheme(
-      fillColor: AppColors.instance.inputs,
+      fillColor: AppColors.inputs,
       filled: true,
       // isDense: true,
-      hintStyle: AppTextStyles.instance.textRegular
-          .copyWith(fontSize: 16, color: AppColors.instance.greyDark),
-      contentPadding: const EdgeInsets.only(top: 15, left: 17, right: 17),
+      labelStyle: AppTextStyles.textMedium.copyWith(
+        color: AppColors.white,
+        fontSize: 16,
+      ),
+      floatingLabelBehavior: FloatingLabelBehavior.always,
+      hintStyle: AppTextStyles.textRegular.copyWith(fontSize: 16, color: AppColors.greyDark),
+      // contentPadding: const EdgeInsets.only(top: 15, left: 17, right: 17),
       border: defaultInputBorder,
       enabledBorder: defaultInputBorder,
       focusedBorder: defaultInputBorder,
       errorBorder: defaultInputBorder.copyWith(
-        borderSide: BorderSide(color: AppColors.instance.red),
+        borderSide: const BorderSide(color: AppColors.red),
       ),
-      labelStyle: AppTextStyles.instance.textMedium.copyWith(
-        color: AppColors.instance.white,
-      ),
-      errorStyle: AppTextStyles.instance.textRegular.copyWith(
-        color: AppColors.instance.red,
+      errorStyle: AppTextStyles.textRegular.copyWith(
+        color: AppColors.red,
       ),
     ),
   );

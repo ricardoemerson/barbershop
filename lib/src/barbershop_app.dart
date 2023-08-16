@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import 'core/theme/theme.dart';
 import 'core/widgets/app_loader.dart';
+import 'features/auth/login/login_page.dart';
 import 'features/splash/splash_page.dart';
 
 class BarbershopApp extends StatelessWidget {
@@ -16,10 +17,11 @@ class BarbershopApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Barbershop',
-          theme: AppTheme.theme,
+          theme: AppTheme.themeData,
           navigatorObservers: [asyncNavigatorObserver],
           routes: {
             '/': (context) => const SplashPage(),
+            '/auth/login': (context) => const LoginPage(),
           },
         );
       },
