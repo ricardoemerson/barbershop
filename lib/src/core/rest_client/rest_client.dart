@@ -5,8 +5,6 @@ import '../helpers/env_helper.dart';
 import 'auth_interceptor.dart';
 
 final class RestClient extends DioForNative {
-  late AuthInterceptor _authInterceptor;
-
   RestClient()
       : super(
           BaseOptions(
@@ -15,26 +13,23 @@ final class RestClient extends DioForNative {
             receiveTimeout: const Duration(seconds: 60),
           ),
         ) {
-    interceptors.add(
+    interceptors.addAll([
       LogInterceptor(
         requestBody: true,
         responseBody: true,
       ),
-    );
-
-    _authInterceptor = AuthInterceptor(restClient: this);
+      AuthInterceptor(restClient: this),
+    ]);
   }
 
   RestClient authRequest() {
-    if (!interceptors.contains(_authInterceptor)) {
-      interceptors.add(_authInterceptor);
-    }
+    options.extra['DIO_AUTH_REQUEST'] = true;
 
     return this;
   }
 
   RestClient publicRequest() {
-    interceptors.remove(_authInterceptor);
+    options.extra['DIO_AUTH_REQUEST'] = false;
 
     return this;
   }

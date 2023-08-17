@@ -4,6 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 // import '../contexts/global_context.dart';
+import '../config/config.dart';
 import '../exceptions/token_expired_exception.dart';
 import 'rest_client.dart';
 
@@ -16,11 +17,17 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
-    final storage = await SharedPreferences.getInstance();
+    final RequestOptions(:extra, :headers) = options;
 
-    final accessToken = storage.getString('accessToken');
+    const authHeaderKey = 'Authorization';
+    headers.remove(authHeaderKey);
 
-    options.headers['Authorization'] = 'Bearer $accessToken';
+    if (extra case {'DIO_AUTH_REQUEST': true}) {
+      final storage = await SharedPreferences.getInstance();
+      final accessToken = storage.getString(LocalStorageKeys.accessToken);
+
+      headers.addAll({authHeaderKey: 'Bearer $accessToken'});
+    }
 
     handler.next(options);
   }
