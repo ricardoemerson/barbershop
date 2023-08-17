@@ -64,6 +64,9 @@ sealed class AppTheme {
       errorBorder: defaultInputBorder.copyWith(
         borderSide: const BorderSide(color: AppColors.error),
       ),
+      focusedErrorBorder: defaultInputBorder.copyWith(
+        borderSide: const BorderSide(color: AppColors.error),
+      ),
       errorStyle: AppTextStyles.textRegular.copyWith(
         color: AppColors.error,
       ),
