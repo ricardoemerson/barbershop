@@ -62,10 +62,10 @@ sealed class AppTheme {
       enabledBorder: defaultInputBorder,
       focusedBorder: defaultInputBorder,
       errorBorder: defaultInputBorder.copyWith(
-        borderSide: const BorderSide(color: AppColors.red),
+        borderSide: const BorderSide(color: AppColors.error),
       ),
       errorStyle: AppTextStyles.textRegular.copyWith(
-        color: AppColors.red,
+        color: AppColors.error,
       ),
     ),
   );
