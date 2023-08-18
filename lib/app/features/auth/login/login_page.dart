@@ -1,13 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:validatorless/validatorless.dart';
 
-class LoginPage extends StatefulWidget {
+import '../../../core/config/config.dart';
+import '../../../core/extensions/extensions.dart';
+import '../../../core/helpers/message_helper.dart';
+import '../../../core/theme/theme.dart';
+import 'login_state.dart';
+import 'login_vm.dart';
+
+class LoginPage extends ConsumerStatefulWidget {
   const LoginPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  ConsumerState<LoginPage> createState() => _LoginPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _LoginPageState extends ConsumerState<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _emailEC = TextEditingController();
@@ -23,13 +32,30 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final LoginVm(:login) = ref.watch(loginVmProvider.notifier);
+
+    ref.listen(loginVmProvider, (previous, state) {
+      switch (state.status) {
+        case LoginStatus.initial:
+          break;
+        case LoginStatus.error:
+          MessageHelper.showError(state.errorMessage ?? 'Erro ao realizar login.', context);
+          break;
+        case LoginStatus.employeeLogin:
+          break;
+        case LoginStatus.admLogin:
+          break;
+      }
+    });
+
     return Scaffold(
+      backgroundColor: Colors.black,
       body: DecoratedBox(
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/background_image_chair.jpg'),
+            image: AssetImage(AppImages.backgroundChair),
             fit: BoxFit.cover,
-            opacity: .6,
+            opacity: .4,
           ),
         ),
         child: Padding(
@@ -47,34 +73,57 @@ class _LoginPageState extends State<LoginPage> {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Image.asset('assets/images/imgLogo.png'),
+                          Image.asset(AppImages.imageLogo),
                           const SizedBox(height: 24),
                           TextFormField(
+                            onTapOutside: (event) => context.unfocus(),
                             controller: _emailEC,
+                            autofocus: true,
                             decoration: const InputDecoration(
                               labelText: 'e-Mail',
                               hintText: 'Informe seu e-Mail',
                             ),
+                            textInputAction: TextInputAction.next,
+                            validator: Validatorless.multiple([
+                              Validatorless.required(AppValidatorMessages.required),
+                              Validatorless.email(AppValidatorMessages.email)
+                            ]),
                           ),
                           const SizedBox(height: 24),
                           TextFormField(
+                            onTapOutside: (event) => context.unfocus(),
                             controller: _passwordEC,
                             decoration: const InputDecoration(
                               labelText: 'Senha',
                               hintText: 'Informe sua senha',
                             ),
+                            obscureText: true,
+                            textInputAction: TextInputAction.next,
+                            validator: Validatorless.multiple([
+                              Validatorless.required(AppValidatorMessages.required),
+                              Validatorless.min(6, AppValidatorMessages.min(6))
+                            ]),
                           ),
                           const SizedBox(height: 8),
                           Align(
                             alignment: Alignment.centerLeft,
                             child: TextButton(
                               onPressed: () {},
-                              child: const Text('Esqueci a senha?'),
+                              style: TextButton.styleFrom(
+                                foregroundColor: AppColors.secondary,
+                              ),
+                              child: const Text('Esqueci minha senha'),
                             ),
                           ),
                           const SizedBox(height: 16),
                           ElevatedButton(
-                            onPressed: () {},
+                            onPressed: () {
+                              final formIsValid = _formKey.currentState?.validate() ?? false;
+
+                              if (formIsValid) {
+                                login(_emailEC.text.trim(), _passwordEC.text.trim());
+                              }
+                            },
                             child: const Text('ACESSAR'),
                           )
                         ],

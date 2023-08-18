@@ -47,19 +47,23 @@ class UserAdmModel extends UserModel {
   }
 
   factory UserAdmModel.fromMap(Map<String, dynamic> map) {
-    return UserAdmModel(
-      id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      avatar: map['avatar'],
-      workDays: List<String>.from(map['work_days']),
-      workHours: List<int>.from(map['work_hours']),
-    );
+    return switch (map) {
+      {
+        'id': final int id,
+        'name': final String name,
+        'email': final String email,
+      } =>
+        UserAdmModel(
+          id: id,
+          name: name,
+          email: email,
+          avatar: map['avatar'],
+          workDays: map['work_days']?.cast<String>(),
+          workHours: map['work_hours']?.cast<int>(),
+        ),
+      _ => throw ArgumentError('Invalid JSON string.')
+    };
   }
-
-  String toJson() => json.encode(toMap());
-
-  factory UserAdmModel.fromJson(String source) => UserAdmModel.fromMap(json.decode(source));
 }
 
 class UserEmployeeModel extends UserModel {
@@ -90,15 +94,26 @@ class UserEmployeeModel extends UserModel {
   }
 
   factory UserEmployeeModel.fromMap(Map<String, dynamic> map) {
-    return UserEmployeeModel(
-      id: map['id']?.toInt() ?? 0,
-      name: map['name'] ?? '',
-      email: map['email'] ?? '',
-      avatar: map['avatar'],
-      barbershopId: map['barbershop_id']?.toInt() ?? 0,
-      workDays: List<String>.from(map['work_days']),
-      workHours: List<int>.from(map['work_hours']),
-    );
+    return switch (map) {
+      {
+        'id': final int id,
+        'name': final String name,
+        'email': final String email,
+        'barbershop_id': final int barbershopId,
+        'work_days': final List workDays,
+        'work_hours': final List workHours,
+      } =>
+        UserEmployeeModel(
+          id: id,
+          name: name,
+          email: email,
+          avatar: map['avatar'],
+          barbershopId: barbershopId,
+          workDays: workDays.cast<String>(),
+          workHours: workHours.cast<int>(),
+        ),
+      _ => throw ArgumentError('Invalid JSON string.')
+    };
   }
 
   String toJson() => json.encode(toMap());

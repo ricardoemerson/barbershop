@@ -18,7 +18,7 @@ class AuthRepository implements IAuthRepository {
   @override
   Future<Either<UnauthorizedException, String>> login(String email, String password) async {
     try {
-      final Response(:data) = await _restClient.publicRequest().post(
+      final Response(:data) = await _restClient.publicRequest.post(
         '/auth',
         data: {
           'email': email,

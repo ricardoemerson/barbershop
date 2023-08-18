@@ -59,7 +59,7 @@ class AuthInterceptor extends Interceptor {
         return;
       }
 
-      final response = await _restClient.authRequest().put(
+      final response = await _restClient.authRequest.put(
         '/auth/refresh',
         data: {
           'refresh_token': refreshToken,

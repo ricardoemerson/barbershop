@@ -22,13 +22,13 @@ final class RestClient extends DioForNative {
     ]);
   }
 
-  RestClient authRequest() {
+  RestClient get authRequest {
     options.extra['DIO_AUTH_REQUEST'] = true;
 
     return this;
   }
 
-  RestClient publicRequest() {
+  RestClient get publicRequest {
     options.extra['DIO_AUTH_REQUEST'] = false;
 
     return this;
