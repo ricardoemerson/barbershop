@@ -16,12 +16,14 @@ sealed class AppTheme {
       bodyLarge: TextStyle(color: AppColors.white),
       bodyMedium: TextStyle(color: AppColors.white),
     ),
-    appBarTheme: const AppBarTheme(
+    appBarTheme: AppBarTheme(
       backgroundColor: AppColors.background,
       foregroundColor: AppColors.white,
+      surfaceTintColor: AppColors.background,
+      iconTheme: const IconThemeData(color: AppColors.primary),
       elevation: 0,
       centerTitle: true,
-      iconTheme: IconThemeData(color: AppColors.primary),
+      titleTextStyle: AppTextStyles.textMedium.copyWith(fontSize: 18),
     ),
     colorScheme: ColorScheme.fromSeed(
       seedColor: AppColors.primary,

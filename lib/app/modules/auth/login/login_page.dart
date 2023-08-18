@@ -134,7 +134,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                     Align(
                       alignment: Alignment.bottomCenter,
                       child: TextButton(
-                        onPressed: () {},
+                        onPressed: () => Navigator.of(context).pushNamed('/auth/register/user'),
                         child: const Text(
                           'Criar conta',
                           style: TextStyle(color: Colors.white),
