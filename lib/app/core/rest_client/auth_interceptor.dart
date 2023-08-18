@@ -1,10 +1,15 @@
 import 'dart:developer';
+import 'dart:io';
 
 import 'package:dio/dio.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:top_snackbar_flutter/custom_snack_bar.dart';
+import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 // import '../contexts/global_context.dart';
 import '../config/config.dart';
+import '../contexts/global_context.dart';
 import '../exceptions/token_expired_exception.dart';
 import 'rest_client.dart';
 
@@ -34,16 +39,20 @@ class AuthInterceptor extends Interceptor {
 
   @override
   Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
-    if (err.response?.statusCode == 401) {
-      try {
-        if (err.requestOptions.path != '/auth/refresh') {
-          await _refreshToken();
-          await _retryRequest(err, handler);
-        } else {
-          // GlobalContext.instance.expireLogin();
+    final DioException(requestOptions: RequestOptions(:extra, :path), :response) = err;
+
+    if (extra case {'DIO_AUTH_REQUEST': true}) {
+      if (response?.statusCode == HttpStatus.unauthorized) {
+        try {
+          if (path != '/auth/refresh') {
+            await _refreshToken();
+            await _retryRequest(err, handler);
+          } else {
+            _expireLogin();
+          }
+        } catch (err) {
+          _expireLogin();
         }
-      } catch (err) {
-        // GlobalContext.instance.expireLogin();
       }
     } else {
       handler.next(err);
@@ -99,5 +108,22 @@ class AuthInterceptor extends Interceptor {
         headers: response.headers,
       ),
     );
+  }
+
+  Future<void> _expireLogin() async {
+    final context = GlobalContext.instance.navigatorKey.currentContext;
+    final navigatorState = GlobalContext.instance.navigatorKey.currentState;
+
+    final storage = await SharedPreferences.getInstance();
+    storage.clear();
+
+    showTopSnackBar(
+      navigatorState!.overlay!,
+      const CustomSnackBar.error(
+        message: 'Seu login expirou. Faça o login novamente ao visualizar sua sacola.',
+      ),
+    );
+
+    Navigator.of(context!).pushNamedAndRemoveUntil('/auth/login', (route) => false);
   }
 }

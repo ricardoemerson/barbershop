@@ -35,7 +35,7 @@ class AuthRepository implements IAuthRepository {
       if (err.response != null) {
         final Response(:statusCode) = err.response!;
 
-        if (statusCode == HttpStatus.forbidden) {
+        if (statusCode == HttpStatus.unauthorized) {
           return Failure(UnauthorizedException('e-Mail ou senha inválidos.'));
         }
       }
