@@ -2,8 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../core/config/local_storage_keys.dart';
 import '../../../core/exceptions/service_exception.dart';
-import '../../../core/fp/either.dart';
-import '../../../core/fp/nil.dart';
+import '../../../core/fp/fp.dart';
 import '../../repositories/auth/i_auth_repository.dart';
 import 'i_user_login_service.dart';
 

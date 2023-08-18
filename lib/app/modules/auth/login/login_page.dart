@@ -123,7 +123,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               final formIsValid = _formKey.currentState?.validate() ?? false;
 
                               if (formIsValid) {
-                                login(_emailEC.text.trim(), _passwordEC.text.trim());
+                                login(_emailEC.trimmedText, _passwordEC.trimmedText);
                               }
                             },
                             child: const Text('ACESSAR'),

@@ -1,5 +1,5 @@
 import '../../../core/exceptions/repository_exception.dart';
-import '../../../core/fp/either.dart';
+import '../../../core/fp/fp.dart';
 import '../../models/barbershop_model.dart';
 import '../../models/user_model.dart';
 

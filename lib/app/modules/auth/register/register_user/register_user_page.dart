@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../../../core/config/config.dart';
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/helpers/message_helper.dart';
+import 'register_user_vm.dart';
 
-class RegisterUserPage extends StatefulWidget {
+class RegisterUserPage extends ConsumerStatefulWidget {
   const RegisterUserPage({super.key});
 
   @override
-  State<RegisterUserPage> createState() => _RegisterUserPageState();
+  ConsumerState<RegisterUserPage> createState() => _RegisterUserPageState();
 }
 
-class _RegisterUserPageState extends State<RegisterUserPage> {
+class _RegisterUserPageState extends ConsumerState<RegisterUserPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _nameEC = TextEditingController();
@@ -29,6 +32,19 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
 
   @override
   Widget build(BuildContext context) {
+    final registerUserVm = ref.watch(registerUserVmProvider.notifier);
+
+    ref.listen(registerUserVmProvider, (previous, state) {
+      switch (state) {
+        case RegisterUserStatus.initial:
+          break;
+        case RegisterUserStatus.success:
+          Navigator.of(context).pushNamed('/auth/register/barbershop');
+        case RegisterUserStatus.error:
+          MessageHelper.showError('Erro ao registrar usuário administrador.', context);
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Criar Conta'),
@@ -54,6 +70,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                         labelText: 'Nome',
                         hintText: 'Informe seu nome',
                       ),
+                      textCapitalization: TextCapitalization.words,
                       textInputAction: TextInputAction.next,
                       validator: Validatorless.required(AppValidatorMessages.required),
                     ),
@@ -90,7 +107,6 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                     const SizedBox(height: 24),
                     TextFormField(
                       onTapOutside: (event) => context.unfocus(),
-                      controller: _passwordEC,
                       decoration: const InputDecoration(
                         labelText: 'Confirmar senha',
                         hintText: 'Informe sua senha novamente',
@@ -99,7 +115,7 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                       textInputAction: TextInputAction.next,
                       validator: Validatorless.multiple([
                         Validatorless.required(AppValidatorMessages.required),
-                        Validatorless.min(6, AppValidatorMessages.min(6))
+                        Validatorless.compare(_passwordEC, AppValidatorMessages.compare),
                       ]),
                     ),
                     const SizedBox(height: 24),
@@ -107,7 +123,13 @@ class _RegisterUserPageState extends State<RegisterUserPage> {
                       onPressed: () {
                         final formIsValid = _formKey.currentState?.validate() ?? false;
 
-                        if (formIsValid) {}
+                        if (formIsValid) {
+                          registerUserVm.register(
+                            name: _nameEC.trimmedText,
+                            email: _emailEC.trimmedText,
+                            password: _passwordEC.trimmedText,
+                          );
+                        }
                       },
                       child: const Text('ACESSAR'),
                     )
