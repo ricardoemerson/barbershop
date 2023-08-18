@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 import 'core/contexts/global_context.dart';
 import 'core/theme/theme.dart';
 import 'core/widgets/app_loader.dart';
-import 'features/auth/login/login_page.dart';
-import 'features/home_adm/home_adm_page.dart';
-import 'features/home_employee/home_employee_page.dart';
-import 'features/splash/splash_page.dart';
+import 'modules/auth/login/login_page.dart';
+import 'modules/home_adm/home_adm_page.dart';
+import 'modules/home_employee/home_employee_page.dart';
+import 'modules/splash/splash_page.dart';
 
 class BarbershopApp extends StatelessWidget {
   const BarbershopApp({super.key});

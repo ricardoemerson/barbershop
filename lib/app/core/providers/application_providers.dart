@@ -1,15 +1,15 @@
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-import '../../models/barbershop_model.dart';
-import '../../models/user_model.dart';
-import '../../repositories/auth/auth_repository.dart';
-import '../../repositories/auth/i_auth_repository.dart';
-import '../../repositories/barbershop/barbershop_repository.dart';
-import '../../repositories/barbershop/i_barbershop_repository.dart';
-import '../../repositories/user/i_user_repository.dart';
-import '../../repositories/user/user_repository.dart';
-import '../../services/user_login/i_user_login_service.dart';
-import '../../services/user_login/user_login_service.dart';
+import '../../data/models/barbershop_model.dart';
+import '../../data/models/user_model.dart';
+import '../../data/repositories/auth/auth_repository.dart';
+import '../../data/repositories/auth/i_auth_repository.dart';
+import '../../data/repositories/barbershop/barbershop_repository.dart';
+import '../../data/repositories/barbershop/i_barbershop_repository.dart';
+import '../../data/repositories/user/i_user_repository.dart';
+import '../../data/repositories/user/user_repository.dart';
+import '../../data/services/user_login/i_user_login_service.dart';
+import '../../data/services/user_login/user_login_service.dart';
 import '../fp/either.dart';
 import '../rest_client/rest_client.dart';
 

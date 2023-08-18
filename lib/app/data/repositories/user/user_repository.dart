@@ -2,9 +2,9 @@ import 'dart:developer';
 
 import 'package:dio/dio.dart';
 
-import '../../core/exceptions/repository_exception.dart';
-import '../../core/fp/either.dart';
-import '../../core/rest_client/rest_client.dart';
+import '../../../core/exceptions/repository_exception.dart';
+import '../../../core/fp/either.dart';
+import '../../../core/rest_client/rest_client.dart';
 import '../../models/user_model.dart';
 import 'i_user_repository.dart';
 

@@ -3,9 +3,9 @@ import 'dart:io';
 
 import 'package:dio/dio.dart';
 
-import '../../core/exceptions/unauthorized_exception.dart';
-import '../../core/fp/either.dart';
-import '../../core/rest_client/rest_client.dart';
+import '../../../core/exceptions/unauthorized_exception.dart';
+import '../../../core/fp/either.dart';
+import '../../../core/rest_client/rest_client.dart';
 import 'i_auth_repository.dart';
 
 class AuthRepository implements IAuthRepository {
