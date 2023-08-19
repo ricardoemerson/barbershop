@@ -1,17 +1,20 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../core/config/config.dart';
+import '../../core/helpers/message_helper.dart';
+import 'splash_vm.dart';
 
-class SplashPage extends StatefulWidget {
+class SplashPage extends ConsumerStatefulWidget {
   const SplashPage({super.key});
 
   @override
-  State<SplashPage> createState() => _SplashPageState();
+  ConsumerState<SplashPage> createState() => _SplashPageState();
 }
 
-class _SplashPageState extends State<SplashPage> {
+class _SplashPageState extends ConsumerState<SplashPage> {
   var _scale = 10.0;
   var _animationOpacityLogo = 0.0;
 
@@ -47,6 +50,32 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
+    ref.listen(
+      splashVmProvider,
+      (previous, state) {
+        state.whenOrNull(
+          error: (error, stackTrace) {
+            MessageHelper.showError(
+              'Erro ao verificar se o usuário já estava autenticado.',
+              context,
+            );
+
+            _redirect('/auth/login');
+          },
+          data: (data) {
+            switch (data) {
+              case SplashStatus.loggedAdm:
+                _redirect('/home/adm');
+              case SplashStatus.loggedEmployee:
+                _redirect('/home/employee');
+              case _:
+                _redirect('/auth/login');
+            }
+          },
+        );
+      },
+    );
+
     return Scaffold(
       backgroundColor: Colors.black,
       body: DecoratedBox(
@@ -66,9 +95,6 @@ class _SplashPageState extends State<SplashPage> {
               setState(() {
                 _animationEnded = true;
               });
-
-              // _redirect('/auth/login');
-              _redirect('/auth/register/barbershop');
             },
             child: AnimatedContainer(
               duration: const Duration(seconds: 3),
