@@ -65,6 +65,8 @@ class AuthInterceptor extends Interceptor {
       final refreshToken = storage.getString('refreshToken');
 
       if (refreshToken == null) {
+        _expireLogin();
+
         return;
       }
 
