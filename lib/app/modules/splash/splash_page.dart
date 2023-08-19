@@ -67,7 +67,8 @@ class _SplashPageState extends State<SplashPage> {
                 _animationEnded = true;
               });
 
-              _redirect('/auth/login');
+              // _redirect('/auth/login');
+              _redirect('/auth/register/barbershop');
             },
             child: AnimatedContainer(
               duration: const Duration(seconds: 3),

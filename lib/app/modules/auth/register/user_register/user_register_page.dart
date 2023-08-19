@@ -5,16 +5,16 @@ import 'package:validatorless/validatorless.dart';
 import '../../../../core/config/config.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/helpers/message_helper.dart';
-import 'register_user_vm.dart';
+import 'user_register_vm.dart';
 
-class RegisterUserPage extends ConsumerStatefulWidget {
-  const RegisterUserPage({super.key});
+class UserRegisterPage extends ConsumerStatefulWidget {
+  const UserRegisterPage({super.key});
 
   @override
-  ConsumerState<RegisterUserPage> createState() => _RegisterUserPageState();
+  ConsumerState<UserRegisterPage> createState() => _RegisterUserPageState();
 }
 
-class _RegisterUserPageState extends ConsumerState<RegisterUserPage> {
+class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _nameEC = TextEditingController();
@@ -32,15 +32,15 @@ class _RegisterUserPageState extends ConsumerState<RegisterUserPage> {
 
   @override
   Widget build(BuildContext context) {
-    final registerUserVm = ref.watch(registerUserVmProvider.notifier);
+    final userRegisterVm = ref.watch(userRegisterVmProvider.notifier);
 
-    ref.listen(registerUserVmProvider, (previous, state) {
+    ref.listen(userRegisterVmProvider, (previous, state) {
       switch (state) {
-        case RegisterUserStatus.initial:
+        case UserRegisterStatus.initial:
           break;
-        case RegisterUserStatus.success:
+        case UserRegisterStatus.success:
           Navigator.of(context).pushNamed('/auth/register/barbershop');
-        case RegisterUserStatus.error:
+        case UserRegisterStatus.error:
           MessageHelper.showError('Erro ao registrar usuário administrador.', context);
       }
     });
@@ -51,7 +51,7 @@ class _RegisterUserPageState extends ConsumerState<RegisterUserPage> {
         centerTitle: true,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(30),
+        padding: const EdgeInsets.all(24),
         child: CustomScrollView(
           physics: const BouncingScrollPhysics(),
           slivers: [
@@ -124,14 +124,14 @@ class _RegisterUserPageState extends ConsumerState<RegisterUserPage> {
                         final formIsValid = _formKey.currentState?.validate() ?? false;
 
                         if (formIsValid) {
-                          registerUserVm.register(
+                          userRegisterVm.register(
                             name: _nameEC.trimmedText,
                             email: _emailEC.trimmedText,
                             password: _passwordEC.trimmedText,
                           );
                         }
                       },
-                      child: const Text('ACESSAR'),
+                      child: const Text('CRIAR CONTA'),
                     )
                   ],
                 ),

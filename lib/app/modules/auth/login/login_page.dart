@@ -61,7 +61,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
           ),
         ),
         child: Padding(
-          padding: const EdgeInsets.all(32),
+          padding: const EdgeInsets.all(24),
           child: CustomScrollView(
             physics: const BouncingScrollPhysics(),
             slivers: [
@@ -106,18 +106,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               Validatorless.min(6, AppValidatorMessages.min(6))
                             ]),
                           ),
-                          const SizedBox(height: 8),
-                          Align(
-                            alignment: Alignment.centerLeft,
-                            child: TextButton(
-                              onPressed: () {},
-                              style: TextButton.styleFrom(
-                                foregroundColor: AppColors.secondary,
-                              ),
-                              child: const Text('Esqueci minha senha'),
-                            ),
-                          ),
-                          const SizedBox(height: 16),
+                          const SizedBox(height: 24),
                           ElevatedButton(
                             onPressed: () {
                               final formIsValid = _formKey.currentState?.validate() ?? false;
@@ -127,7 +116,15 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                               }
                             },
                             child: const Text('ACESSAR'),
-                          )
+                          ),
+                          const SizedBox(height: 24),
+                          TextButton(
+                            onPressed: () {},
+                            style: TextButton.styleFrom(
+                              foregroundColor: AppColors.white,
+                            ),
+                            child: const Text('Esqueci minha senha'),
+                          ),
                         ],
                       ),
                     ),
@@ -135,10 +132,7 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                       alignment: Alignment.bottomCenter,
                       child: TextButton(
                         onPressed: () => Navigator.of(context).pushNamed('/auth/register/user'),
-                        child: const Text(
-                          'Criar conta',
-                          style: TextStyle(color: Colors.white),
-                        ),
+                        child: const Text('Criar conta'),
                       ),
                     ),
                   ],

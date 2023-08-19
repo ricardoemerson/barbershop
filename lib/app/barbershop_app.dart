@@ -5,7 +5,8 @@ import 'core/contexts/global_context.dart';
 import 'core/theme/theme.dart';
 import 'core/widgets/app_loader.dart';
 import 'modules/auth/login/login_page.dart';
-import 'modules/auth/register/register_user/register_user_page.dart';
+import 'modules/auth/register/barbershop_register/barbershop_register_page.dart';
+import 'modules/auth/register/user_register/user_register_page.dart';
 import 'modules/home_adm/home_adm_page.dart';
 import 'modules/home_employee/home_employee_page.dart';
 import 'modules/splash/splash_page.dart';
@@ -27,8 +28,8 @@ class BarbershopApp extends StatelessWidget {
           routes: {
             '/': (context) => const SplashPage(),
             '/auth/login': (context) => const LoginPage(),
-            '/auth/register/user': (context) => const RegisterUserPage(),
-            '/auth/register/barbershop': (context) => const RegisterUserPage(),
+            '/auth/register/user': (context) => const UserRegisterPage(),
+            '/auth/register/barbershop': (context) => const BarbershopRegisterPage(),
             '/home/adm': (context) => const HomeAdmPage(),
             '/home/employee': (context) => const HomeEmployeePage(),
           },

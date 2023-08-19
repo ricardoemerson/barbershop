@@ -11,7 +11,6 @@ sealed class AppTextStyles {
   static const textExtraBold = TextStyle(fontWeight: FontWeight.w800, fontFamily: fontFamily);
 
   static final textTitle = textExtraBold.copyWith(fontSize: 28);
-  static final textBody = textRegular.copyWith(fontSize: 16);
-  static final textButton = textMedium.copyWith(fontSize: 16);
-  static final textButtonLabel = textBold.copyWith(fontSize: 16);
+  static final textBodyExtraSmall = textRegular.copyWith(fontSize: 12);
+  static final textSectionTitle = textMedium.copyWith(fontSize: 14);
 }

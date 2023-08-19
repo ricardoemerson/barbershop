@@ -12,9 +12,10 @@ sealed class AppTheme {
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.background,
     fontFamily: AppTextStyles.fontFamily,
-    textTheme: const TextTheme(
-      bodyLarge: TextStyle(color: AppColors.white),
-      bodyMedium: TextStyle(color: AppColors.white),
+    textTheme: TextTheme(
+      bodyLarge: AppTextStyles.textRegular.copyWith(color: Colors.white, fontSize: 18),
+      bodyMedium: AppTextStyles.textRegular.copyWith(color: Colors.white, fontSize: 16),
+      bodySmall: AppTextStyles.textRegular.copyWith(color: Colors.white, fontSize: 14),
     ),
     appBarTheme: AppBarTheme(
       backgroundColor: AppColors.background,
@@ -36,8 +37,8 @@ sealed class AppTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
-        textStyle: AppTextStyles.textButtonLabel,
+        foregroundColor: AppColors.background,
+        textStyle: AppTextStyles.textBold,
         minimumSize: const Size.fromHeight(56),
       ),
     ),
@@ -46,7 +47,7 @@ sealed class AppTheme {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(8),
         ),
-        textStyle: AppTextStyles.textButton,
+        textStyle: AppTextStyles.textMedium,
       ),
     ),
     inputDecorationTheme: InputDecorationTheme(

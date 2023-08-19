@@ -1,26 +1,27 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'register_user_vm.dart';
+part of 'user_register_providers.dart';
 
 // **************************************************************************
 // RiverpodGenerator
 // **************************************************************************
 
-String _$registerUserVmHash() => r'b4a1c57a0037edc628f7d1255839f6f4f71a28f9';
+String _$userRegisterAdmServiceHash() =>
+    r'e77a56f8e788848f55e8eb427fe6047704f517d9';
 
-/// See also [RegisterUserVm].
-@ProviderFor(RegisterUserVm)
-final registerUserVmProvider =
-    AutoDisposeNotifierProvider<RegisterUserVm, RegisterUserStatus>.internal(
-  RegisterUserVm.new,
-  name: r'registerUserVmProvider',
+/// See also [userRegisterAdmService].
+@ProviderFor(userRegisterAdmService)
+final userRegisterAdmServiceProvider =
+    Provider<IUserRegisterAdmService>.internal(
+  userRegisterAdmService,
+  name: r'userRegisterAdmServiceProvider',
   debugGetCreateSourceHash: const bool.fromEnvironment('dart.vm.product')
       ? null
-      : _$registerUserVmHash,
+      : _$userRegisterAdmServiceHash,
   dependencies: null,
   allTransitiveDependencies: null,
 );
 
-typedef _$RegisterUserVm = AutoDisposeNotifier<RegisterUserStatus>;
+typedef UserRegisterAdmServiceRef = ProviderRef<IUserRegisterAdmService>;
 // ignore_for_file: type=lint
 // ignore_for_file: subtype_of_sealed_class, invalid_use_of_internal_member
