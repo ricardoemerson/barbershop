@@ -1,21 +1,23 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:validatorless/validatorless.dart';
 
 import '../../../../core/config/config.dart';
 import '../../../../core/extensions/extensions.dart';
+import '../../../../core/helpers/message_helper.dart';
 import '../../../../core/widgets/hours_panel.dart';
 import '../../../../core/widgets/week_days_panel.dart';
+import 'barbershop_register_state.dart';
+import 'barbershop_register_vm.dart';
 
-class BarbershopRegisterPage extends StatefulWidget {
+class BarbershopRegisterPage extends ConsumerStatefulWidget {
   const BarbershopRegisterPage({super.key});
 
   @override
-  State<BarbershopRegisterPage> createState() => _BarbershopRegisterPageState();
+  ConsumerState<BarbershopRegisterPage> createState() => _BarbershopRegisterPageState();
 }
 
-class _BarbershopRegisterPageState extends State<BarbershopRegisterPage> {
+class _BarbershopRegisterPageState extends ConsumerState<BarbershopRegisterPage> {
   final _formKey = GlobalKey<FormState>();
 
   final _nameEC = TextEditingController();
@@ -31,6 +33,19 @@ class _BarbershopRegisterPageState extends State<BarbershopRegisterPage> {
 
   @override
   Widget build(BuildContext context) {
+    final barbershopRegisterVm = ref.watch(barbershopRegisterVmProvider.notifier);
+
+    ref.listen(barbershopRegisterVmProvider, (previous, state) {
+      switch (state.status) {
+        case BarbershopRegisterStatus.initial:
+          break;
+        case BarbershopRegisterStatus.success:
+          Navigator.of(context).pushNamedAndRemoveUntil('/home/adm', (route) => false);
+        case BarbershopRegisterStatus.error:
+          MessageHelper.showError('Erro ao registrar a barbearia.', context);
+      }
+    });
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Cadastrar Estabelecimento'),
@@ -77,13 +92,13 @@ class _BarbershopRegisterPageState extends State<BarbershopRegisterPage> {
                     const SizedBox(height: 24),
                     WeekDaysPanel(
                       onPressed: (value) {
-                        log('Dia selecionado $value');
+                        barbershopRegisterVm.addOrRemoveOpenDay(value);
                       },
                     ),
                     const SizedBox(height: 24),
                     HoursPanel(
                       onPressed: (value) {
-                        log('Dia selecionado $value');
+                        barbershopRegisterVm.addOrRemoveOpenHour(value);
                       },
                       startTime: 6,
                       endTime: 23,
@@ -93,7 +108,12 @@ class _BarbershopRegisterPageState extends State<BarbershopRegisterPage> {
                       onPressed: () {
                         final formIsValid = _formKey.currentState?.validate() ?? false;
 
-                        if (formIsValid) {}
+                        if (formIsValid) {
+                          barbershopRegisterVm.register(
+                            name: _nameEC.trimmedText,
+                            email: _emailEC.trimmedText,
+                          );
+                        }
                       },
                       child: const Text('CADASTRAR ESTABELECIMENTO'),
                     )
