@@ -16,7 +16,10 @@ class AuthRepository implements IAuthRepository {
   }) : _restClient = restClient;
 
   @override
-  Future<Either<UnauthorizedException, String>> login(String email, String password) async {
+  Future<Either<UnauthorizedException, ({String accessToken, String refreshToken})>> login(
+    String email,
+    String password,
+  ) async {
     try {
       final Response(:data) = await _restClient.publicRequest.post(
         '/auth',
@@ -26,7 +29,7 @@ class AuthRepository implements IAuthRepository {
         },
       );
 
-      return Success(data['access_token']);
+      return Success((accessToken: data['access_token'], refreshToken: data['refresh_token']));
     } on DioException catch (err, s) {
       const message = 'Erro ao realizar o login.';
 

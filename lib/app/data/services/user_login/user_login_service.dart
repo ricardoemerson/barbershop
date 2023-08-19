@@ -18,9 +18,10 @@ class UserLoginService implements IUserLoginService {
     final response = await _authRepository.login(email, password);
 
     switch (response) {
-      case Success(value: final accessToken):
+      case Success(value: (:final accessToken, :final refreshToken)):
         final storage = await SharedPreferences.getInstance();
         storage.setString(LocalStorageKeys.accessToken, accessToken);
+        storage.setString(LocalStorageKeys.refreshToken, refreshToken);
 
         return Success(nil);
       case Failure(:final exception):

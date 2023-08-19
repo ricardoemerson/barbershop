@@ -62,21 +62,23 @@ class AuthInterceptor extends Interceptor {
   Future<void> _refreshToken() async {
     try {
       final storage = await SharedPreferences.getInstance();
-      final refreshToken = storage.getString('refreshToken');
+      final refreshToken = storage.getString(LocalStorageKeys.refreshToken);
 
       if (refreshToken == null) {
+        _expireLogin();
+
         return;
       }
 
-      final response = await _restClient.authRequest.put(
+      final Response(:data) = await _restClient.authRequest.put(
         '/auth/refresh',
         data: {
           'refresh_token': refreshToken,
         },
       );
 
-      storage.setString('accessToken', response.data.accessToken);
-      storage.setString('refreshToken', response.data.refreshToken);
+      storage.setString(LocalStorageKeys.accessToken, data['access_token']);
+      storage.setString(LocalStorageKeys.refreshToken, data['refresh_token']);
     } on DioException catch (err, s) {
       const message = 'Refresh token expirado.';
 
@@ -120,7 +122,7 @@ class AuthInterceptor extends Interceptor {
     showTopSnackBar(
       navigatorState!.overlay!,
       const CustomSnackBar.error(
-        message: 'Seu login expirou. Faça o login novamente ao visualizar sua sacola.',
+        message: 'Seu login expirou. Faça o login novamente.',
       ),
     );
 
