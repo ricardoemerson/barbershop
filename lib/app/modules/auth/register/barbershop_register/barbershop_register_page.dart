@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:validatorless/validatorless.dart';
 
@@ -73,9 +75,19 @@ class _BarbershopRegisterPageState extends State<BarbershopRegisterPage> {
                       ]),
                     ),
                     const SizedBox(height: 24),
-                    const WeekDaysPanel(),
+                    WeekDaysPanel(
+                      onPressed: (value) {
+                        log('Dia selecionado $value');
+                      },
+                    ),
                     const SizedBox(height: 24),
-                    const HoursPanel(startTime: 6, endTime: 23),
+                    HoursPanel(
+                      onPressed: (value) {
+                        log('Dia selecionado $value');
+                      },
+                      startTime: 6,
+                      endTime: 23,
+                    ),
                     const SizedBox(height: 24),
                     ElevatedButton(
                       onPressed: () {

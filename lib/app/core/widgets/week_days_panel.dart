@@ -5,7 +5,9 @@ import '../theme/theme.dart';
 import 'week_day_button.dart';
 
 class WeekDaysPanel extends StatelessWidget {
-  const WeekDaysPanel({super.key});
+  final ValueChanged<String> onPressed;
+
+  const WeekDaysPanel({super.key, required this.onPressed});
 
   @override
   Widget build(BuildContext context) {
@@ -19,19 +21,40 @@ class WeekDaysPanel extends StatelessWidget {
             style: AppTextStyles.textSectionTitle,
           ),
           const SizedBox(height: 16),
-          const SingleChildScrollView(
+          SingleChildScrollView(
             scrollDirection: Axis.horizontal,
-            physics: BouncingScrollPhysics(),
+            physics: const BouncingScrollPhysics(),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                WeekDayButton(label: 'Seg'),
-                WeekDayButton(label: 'Ter'),
-                WeekDayButton(label: 'Qua'),
-                WeekDayButton(label: 'Qui'),
-                WeekDayButton(label: 'Sex'),
-                WeekDayButton(label: 'Sáb'),
-                WeekDayButton(label: 'Dom'),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Seg',
+                ),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Ter',
+                ),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Qua',
+                ),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Qui',
+                ),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Sex',
+                ),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Sáb',
+                ),
+                WeekDayButton(
+                  onPressed: onPressed,
+                  label: 'Dom',
+                ),
               ],
             ),
           ),

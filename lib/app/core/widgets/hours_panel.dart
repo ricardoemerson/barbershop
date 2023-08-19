@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
-import 'hour_button.dart';
+import 'time_button.dart';
 
 class HoursPanel extends StatelessWidget {
   final int startTime;
   final int endTime;
+  final ValueChanged<int> onPressed;
 
   const HoursPanel({
     super.key,
     required this.startTime,
     required this.endTime,
+    required this.onPressed,
   });
 
   @override
@@ -27,7 +29,11 @@ class HoursPanel extends StatelessWidget {
           runSpacing: 8,
           children: [
             for (int i = startTime; i <= endTime; i++)
-              HourButton(label: '${i.toString().padLeft(2, '0')}:00'),
+              TimeButton(
+                onPressed: onPressed,
+                label: '${i.toString().padLeft(2, '0')}:00',
+                value: i,
+              ),
           ],
         ),
       ],

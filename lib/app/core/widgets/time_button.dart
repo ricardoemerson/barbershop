@@ -2,21 +2,23 @@ import 'package:flutter/material.dart';
 
 import '../theme/theme.dart';
 
-class WeekDayButton extends StatefulWidget {
+class TimeButton extends StatefulWidget {
   final String label;
-  final ValueChanged<String> onPressed;
+  final int value;
+  final ValueChanged<int> onPressed;
 
-  const WeekDayButton({
+  const TimeButton({
     super.key,
     required this.label,
+    required this.value,
     required this.onPressed,
   });
 
   @override
-  State<WeekDayButton> createState() => _WeekDayButtonState();
+  State<TimeButton> createState() => _TimeButtonState();
 }
 
-class _WeekDayButtonState extends State<WeekDayButton> {
+class _TimeButtonState extends State<TimeButton> {
   var selected = false;
 
   @override
@@ -25,10 +27,10 @@ class _WeekDayButtonState extends State<WeekDayButton> {
     final backgroundColor = selected ? AppColors.primary : AppColors.background;
 
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 4),
       child: InkWell(
         onTap: () {
-          widget.onPressed(widget.label);
+          widget.onPressed(widget.value);
 
           setState(() {
             selected = !selected;
@@ -36,8 +38,8 @@ class _WeekDayButtonState extends State<WeekDayButton> {
         },
         borderRadius: BorderRadius.circular(8),
         child: Container(
-          width: 40,
-          height: 56,
+          width: 64,
+          height: 36,
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(8),

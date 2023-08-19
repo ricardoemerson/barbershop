@@ -37,7 +37,7 @@ sealed class AppTheme {
           borderRadius: BorderRadius.circular(8),
         ),
         backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.background,
+        foregroundColor: AppColors.white,
         textStyle: AppTextStyles.textBold,
         minimumSize: const Size.fromHeight(56),
       ),
