@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:dio/dio.dart';
 
 import '../../../core/exceptions/repository_exception.dart';
@@ -32,6 +34,32 @@ class BarbershopRepository implements IBarbershopRepository {
             await _restClient.authRequest.get('/barbershop/${user.barbershopId}');
 
         return Success(BarbershopModel.fromMap(data));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Nil>> save(
+    ({String email, String name, List<String> openingDays, List<int> openingHours}) barbershopData,
+  ) async {
+    try {
+      await _restClient.authRequest.post(
+        '/barbershop',
+        data: {
+          'user_id': '#userAuthRef',
+          'name': barbershopData.name,
+          'email': barbershopData.email,
+          'opening_days': barbershopData.openingDays,
+          'opening_hours': barbershopData.openingHours,
+        },
+      );
+
+      return Success(nil);
+    } on DioException catch (err, s) {
+      const message = 'Erro ao registrar barbearia.';
+
+      log(message, error: err, stackTrace: s);
+
+      return Failure(RepositoryException(message));
     }
   }
 }
