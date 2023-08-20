@@ -1,18 +1,24 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
 import '../../../core/config/config.dart';
 import '../../../core/extensions/extensions.dart';
+import '../../../core/providers/application_providers.dart';
 import '../../../core/theme/theme.dart';
+import '../../../core/widgets/app_loader.dart';
+import '../home_adm/home_adm_vm.dart';
 
-class HomeHeader extends StatelessWidget {
+class HomeHeader extends ConsumerWidget {
   final bool hideFilter;
 
   const HomeHeader({super.key}) : hideFilter = false;
   const HomeHeader.withoutFilter({super.key}) : hideFilter = true;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final barbershopProvider = ref.watch(getMyBarbershopProvider);
+
     return Container(
       width: context.screenWidth,
       padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
@@ -32,33 +38,42 @@ class HomeHeader extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              children: [
-                const CircleAvatar(
-                  backgroundColor: AppColors.grey,
-                  child: Text('RE'),
-                ),
-                const SizedBox(width: 14),
-                Flexible(
-                  child: Text(
-                    'Ricardo Emerson',
-                    style: AppTextStyles.textBold.copyWith(
-                      fontSize: 14,
+            barbershopProvider.maybeWhen(
+              data: (barbershop) {
+                return Row(
+                  children: [
+                    const CircleAvatar(
+                      backgroundColor: AppColors.grey,
+                      child: Text('RE'),
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-                const SizedBox(width: 16),
-                TextButton(
-                  onPressed: () {},
-                  child: const Text('Editar'),
-                ),
-                const Spacer(),
-                IconButton(
-                  onPressed: () {},
-                  icon: PhosphorIcon(PhosphorIcons.regular.signOut),
-                ),
-              ],
+                    const SizedBox(width: 14),
+                    Flexible(
+                      child: Text(
+                        barbershop.name,
+                        style: AppTextStyles.textBold.copyWith(
+                          fontSize: 14,
+                        ),
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    TextButton(
+                      onPressed: () {},
+                      child: const Text('Editar'),
+                    ),
+                    const Spacer(),
+                    IconButton(
+                      onPressed: () {
+                        ref.read(homeAdmVmProvider.notifier).logout();
+                      },
+                      icon: PhosphorIcon(PhosphorIcons.regular.signOut),
+                    ),
+                  ],
+                );
+              },
+              orElse: () {
+                return const Center(child: AppLoader());
+              },
             ),
             const SizedBox(height: 24),
             Text(

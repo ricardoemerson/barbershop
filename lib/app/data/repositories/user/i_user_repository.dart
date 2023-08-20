@@ -4,6 +4,7 @@ import '../../models/user_model.dart';
 
 abstract interface class IUserRepository {
   Future<Either<RepositoryException, UserModel>> me();
+  Future<Either<RepositoryException, List<UserModel>>> getEmployees(int barbershopId);
   Future<Either<RepositoryException, Nil>> registerAdim(
     ({
       String name,

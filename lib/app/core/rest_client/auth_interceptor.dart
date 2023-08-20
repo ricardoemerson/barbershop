@@ -45,8 +45,8 @@ class AuthInterceptor extends Interceptor {
       if (response?.statusCode == HttpStatus.unauthorized) {
         try {
           if (path != '/auth/refresh') {
-            await _refreshToken();
-            await _retryRequest(err, handler);
+            final refreshTokenUpdated = await _refreshToken();
+            if (refreshTokenUpdated) await _retryRequest(err, handler);
           } else {
             _expireLogin();
           }
@@ -59,15 +59,13 @@ class AuthInterceptor extends Interceptor {
     }
   }
 
-  Future<void> _refreshToken() async {
+  Future<bool> _refreshToken() async {
     try {
       final storage = await SharedPreferences.getInstance();
       final refreshToken = storage.getString(LocalStorageKeys.refreshToken);
 
       if (refreshToken == null) {
-        _expireLogin();
-
-        return;
+        return false;
       }
 
       final Response(:data) = await _restClient.authRequest.put(
@@ -79,6 +77,8 @@ class AuthInterceptor extends Interceptor {
 
       storage.setString(LocalStorageKeys.accessToken, data['access_token']);
       storage.setString(LocalStorageKeys.refreshToken, data['refresh_token']);
+
+      return true;
     } on DioException catch (err, s) {
       const message = 'Refresh token expirado.';
 

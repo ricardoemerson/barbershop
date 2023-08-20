@@ -35,6 +35,32 @@ class UserRepository implements IUserRepository {
   }
 
   @override
+  Future<Either<RepositoryException, List<UserModel>>> getEmployees(int barbershopId) async {
+    try {
+      final Response(:List data) = await _restClient.authRequest.get(
+        '/users',
+        queryParameters: {
+          'barbershop_id': barbershopId,
+        },
+      );
+
+      final employees = data.map((e) => UserEmployeeModel.fromMap(e)).toList();
+
+      return Success(employees);
+    } on DioException catch (err, s) {
+      const message = 'Erro ao buscar colaboradores.';
+
+      log(message, error: err, stackTrace: s);
+
+      return Failure(RepositoryException(message));
+    } on ArgumentError catch (err, s) {
+      log(err.message, error: err, stackTrace: s);
+
+      return Failure(RepositoryException(err.message));
+    }
+  }
+
+  @override
   Future<Either<RepositoryException, Nil>> registerAdim(
     ({
       String email,

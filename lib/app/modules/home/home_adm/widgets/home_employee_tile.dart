@@ -4,11 +4,15 @@ import 'package:phosphor_flutter/phosphor_flutter.dart';
 import '../../../../core/config/config.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/theme/theme.dart';
+import '../../../../data/models/user_model.dart';
 
 class HomeEmployeeTile extends StatelessWidget {
-  final imageNetwork = false;
+  final UserModel employee;
 
-  const HomeEmployeeTile({super.key});
+  const HomeEmployeeTile({
+    super.key,
+    required this.employee,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +27,9 @@ class HomeEmployeeTile extends StatelessWidget {
       child: Row(
         children: [
           Image(
-            image: switch (imageNetwork) {
-              true => const NetworkImage('url'),
-              false => const AssetImage(AppImages.avatar),
+            image: switch (employee.avatar) {
+              final avatar? => NetworkImage(avatar),
+              _ => const AssetImage(AppImages.avatar),
             } as ImageProvider,
             width: 56,
             height: 56,
@@ -37,8 +41,8 @@ class HomeEmployeeTile extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  'Nome e Sobrenome',
+                Text(
+                  employee.name,
                   style: AppTextStyles.textMedium,
                 ),
                 Row(
@@ -76,7 +80,7 @@ class HomeEmployeeTile extends StatelessWidget {
                       onTap: () {},
                       borderRadius: BorderRadius.circular(30),
                       child: Padding(
-                        padding: const EdgeInsets.all(4),
+                        padding: const EdgeInsets.only(top: 4, right: 4, bottom: 4),
                         child: PhosphorIcon(
                           PhosphorIcons.regular.trash,
                           color: AppColors.red,
