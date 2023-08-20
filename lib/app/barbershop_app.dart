@@ -7,8 +7,8 @@ import 'core/widgets/app_loader.dart';
 import 'modules/auth/login/login_page.dart';
 import 'modules/auth/register/barbershop_register/barbershop_register_page.dart';
 import 'modules/auth/register/user_register/user_register_page.dart';
-import 'modules/home_adm/home_adm_page.dart';
-import 'modules/home_employee/home_employee_page.dart';
+import 'modules/home/home_adm/home_adm_page.dart';
+import 'modules/home/home_employee/home_employee_page.dart';
 import 'modules/splash/splash_page.dart';
 
 class BarbershopApp extends StatelessWidget {

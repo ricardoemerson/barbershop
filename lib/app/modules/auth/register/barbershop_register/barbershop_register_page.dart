@@ -115,6 +115,9 @@ class _BarbershopRegisterPageState extends ConsumerState<BarbershopRegisterPage>
                           );
                         }
                       },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(56),
+                      ),
                       child: const Text('CADASTRAR ESTABELECIMENTO'),
                     )
                   ],

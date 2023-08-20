@@ -115,6 +115,9 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                                 login(_emailEC.trimmedText, _passwordEC.trimmedText);
                               }
                             },
+                            style: ElevatedButton.styleFrom(
+                              minimumSize: const Size.fromHeight(56),
+                            ),
                             child: const Text('ACESSAR'),
                           ),
                           const SizedBox(height: 24),

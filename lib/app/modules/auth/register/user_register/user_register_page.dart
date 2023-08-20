@@ -131,6 +131,9 @@ class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
                           );
                         }
                       },
+                      style: ElevatedButton.styleFrom(
+                        minimumSize: const Size.fromHeight(56),
+                      ),
                       child: const Text('CRIAR CONTA'),
                     )
                   ],

@@ -38,8 +38,7 @@ sealed class AppTheme {
         ),
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
-        textStyle: AppTextStyles.textBold,
-        minimumSize: const Size.fromHeight(56),
+        textStyle: AppTextStyles.textSemiBold,
       ),
     ),
     textButtonTheme: TextButtonThemeData(
@@ -50,10 +49,29 @@ sealed class AppTheme {
         textStyle: AppTextStyles.textMedium,
       ),
     ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: OutlinedButton.styleFrom(
+        foregroundColor: AppColors.primary,
+        textStyle: AppTextStyles.textSemiBold,
+        side: const BorderSide(color: AppColors.primary),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: IconButton.styleFrom(
+        foregroundColor: AppColors.primary,
+      ),
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      shape: CircleBorder(),
+      backgroundColor: AppColors.primary,
+    ),
     inputDecorationTheme: InputDecorationTheme(
       fillColor: AppColors.inputs,
       filled: true,
-      // isDense: true,
+      isDense: true,
       labelStyle: AppTextStyles.textMedium.copyWith(
         color: AppColors.white,
         fontSize: 16,
@@ -61,6 +79,7 @@ sealed class AppTheme {
       floatingLabelBehavior: FloatingLabelBehavior.always,
       hintStyle: AppTextStyles.textRegular.copyWith(fontSize: 16, color: AppColors.greyDark),
       // contentPadding: const EdgeInsets.only(top: 15, left: 17, right: 17),
+      suffixIconColor: AppColors.primary,
       border: defaultInputBorder,
       enabledBorder: defaultInputBorder,
       focusedBorder: defaultInputBorder,
