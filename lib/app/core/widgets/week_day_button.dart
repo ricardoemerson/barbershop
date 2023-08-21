@@ -4,11 +4,13 @@ import '../theme/theme.dart';
 
 class WeekDayButton extends StatefulWidget {
   final String label;
+  final List<String>? enabledDays;
   final ValueChanged<String> onPressed;
 
   const WeekDayButton({
     super.key,
     required this.label,
+    this.enabledDays,
     required this.onPressed,
   });
 
@@ -22,18 +24,29 @@ class _WeekDayButtonState extends State<WeekDayButton> {
   @override
   Widget build(BuildContext context) {
     final foregroundColor = selected ? AppColors.white : AppColors.grey;
-    final backgroundColor = selected ? AppColors.primary : AppColors.background;
+    var backgroundColor = selected ? AppColors.primary : AppColors.background;
+    final borderColor = selected ? AppColors.primary : AppColors.grey;
+
+    final WeekDayButton(:label, :enabledDays, :onPressed) = widget;
+
+    final disabledDay = enabledDays != null && !enabledDays.contains(label);
+
+    if (disabledDay) {
+      backgroundColor = AppColors.greyDark;
+    }
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: InkWell(
-        onTap: () {
-          widget.onPressed(widget.label);
+        onTap: disabledDay
+            ? null
+            : () {
+                onPressed(label);
 
-          setState(() {
-            selected = !selected;
-          });
-        },
+                setState(() {
+                  selected = !selected;
+                });
+              },
         borderRadius: BorderRadius.circular(8),
         child: Container(
           width: 40,
@@ -41,11 +54,11 @@ class _WeekDayButtonState extends State<WeekDayButton> {
           decoration: BoxDecoration(
             color: backgroundColor,
             borderRadius: BorderRadius.circular(8),
-            border: Border.all(color: selected ? AppColors.primary : AppColors.grey),
+            border: Border.all(color: borderColor),
           ),
           child: Center(
             child: Text(
-              widget.label,
+              label,
               style: AppTextStyles.textRegular.copyWith(
                 fontWeight: FontWeight.w500,
                 fontSize: 12,

@@ -78,7 +78,6 @@ class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
                     TextFormField(
                       onTapOutside: (event) => context.unfocus(),
                       controller: _emailEC,
-                      autofocus: true,
                       decoration: const InputDecoration(
                         labelText: 'e-Mail',
                         hintText: 'Informe seu e-Mail',

@@ -19,7 +19,7 @@ class UserRegisterAdmService implements IUserRegisterAdmService {
   Future<Either<ServiceException, Nil>> execute(
     ({String email, String name, String password}) userData,
   ) async {
-    final response = await _userRepository.registerAdim(userData);
+    final response = await _userRepository.registerAdmin(userData);
 
     switch (response) {
       case Success():

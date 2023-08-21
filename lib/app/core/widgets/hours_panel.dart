@@ -6,12 +6,14 @@ import 'time_button.dart';
 class HoursPanel extends StatelessWidget {
   final int startTime;
   final int endTime;
+  final List<int>? enabledTimes;
   final ValueChanged<int> onPressed;
 
   const HoursPanel({
     super.key,
     required this.startTime,
     required this.endTime,
+    this.enabledTimes,
     required this.onPressed,
   });
 
@@ -33,6 +35,7 @@ class HoursPanel extends StatelessWidget {
                 onPressed: onPressed,
                 label: '${i.toString().padLeft(2, '0')}:00',
                 value: i,
+                enabledTimes: enabledTimes,
               ),
           ],
         ),

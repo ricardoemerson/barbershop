@@ -61,7 +61,7 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<Either<RepositoryException, Nil>> registerAdim(
+  Future<Either<RepositoryException, Nil>> registerAdmin(
     ({
       String email,
       String name,
@@ -82,6 +82,74 @@ class UserRepository implements IUserRepository {
       return Success(nil);
     } on DioException catch (err, s) {
       const message = 'Erro ao registrar usuário admin.';
+
+      log(message, error: err, stackTrace: s);
+
+      return Failure(RepositoryException(message));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Nil>> registerAdminAsEmployee(
+    ({List<String> workDays, List<int> workHours}) userData,
+  ) async {
+    try {
+      final currentUserResponse = await me();
+      final int currentUserId;
+
+      switch (currentUserResponse) {
+        case Success(value: UserModel(:final id)):
+          currentUserId = id;
+        case Failure(:final exception):
+          return Failure(exception);
+      }
+
+      await _restClient.publicRequest.put(
+        '/users/$currentUserId',
+        data: {
+          'work_days': userData.workDays,
+          'work_hours': userData.workHours,
+        },
+      );
+
+      return Success(nil);
+    } on DioException catch (err, s) {
+      const message = 'Erro ao atualizar administrador como colaborador.';
+
+      log(message, error: err, stackTrace: s);
+
+      return Failure(RepositoryException(message));
+    }
+  }
+
+  @override
+  Future<Either<RepositoryException, Nil>> registerEmployee(
+    ({
+      int barbershopId,
+      String email,
+      String name,
+      String password,
+      List<String> workDays,
+      List<int> workHours
+    }) userData,
+  ) async {
+    try {
+      await _restClient.publicRequest.post(
+        '/users',
+        data: {
+          'barbershop_id': userData.barbershopId,
+          'name': userData.name,
+          'email': userData.email,
+          'password': userData.password,
+          'profile': 'EMPLOYEE',
+          'work_days': userData.workDays,
+          'work_hours': userData.workHours,
+        },
+      );
+
+      return Success(nil);
+    } on DioException catch (err, s) {
+      const message = 'Erro ao registrar colaborador.';
 
       log(message, error: err, stackTrace: s);
 

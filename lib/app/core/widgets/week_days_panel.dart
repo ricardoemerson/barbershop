@@ -5,9 +5,14 @@ import '../theme/theme.dart';
 import 'week_day_button.dart';
 
 class WeekDaysPanel extends StatelessWidget {
+  final List<String>? enabledDays;
   final ValueChanged<String> onPressed;
 
-  const WeekDaysPanel({super.key, required this.onPressed});
+  const WeekDaysPanel({
+    super.key,
+    this.enabledDays,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -30,30 +35,37 @@ class WeekDaysPanel extends StatelessWidget {
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Seg',
+                  enabledDays: enabledDays,
                 ),
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Ter',
+                  enabledDays: enabledDays,
                 ),
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Qua',
+                  enabledDays: enabledDays,
                 ),
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Qui',
+                  enabledDays: enabledDays,
                 ),
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Sex',
+                  enabledDays: enabledDays,
                 ),
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Sáb',
+                  enabledDays: enabledDays,
                 ),
                 WeekDayButton(
                   onPressed: onPressed,
                   label: 'Dom',
+                  enabledDays: enabledDays,
                 ),
               ],
             ),

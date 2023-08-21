@@ -41,27 +41,36 @@ class HomeHeader extends ConsumerWidget {
             barbershopProvider.maybeWhen(
               data: (barbershop) {
                 return Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const CircleAvatar(
-                      backgroundColor: AppColors.grey,
-                      child: Text('RE'),
-                    ),
-                    const SizedBox(width: 14),
-                    Flexible(
-                      child: Text(
-                        barbershop.name,
-                        style: AppTextStyles.textBold.copyWith(
-                          fontSize: 14,
-                        ),
-                        overflow: TextOverflow.ellipsis,
+                    IntrinsicWidth(
+                      child: Row(
+                        children: [
+                          const CircleAvatar(
+                            backgroundColor: AppColors.grey,
+                            child: Text('RE'),
+                          ),
+                          const SizedBox(width: 14),
+                          Flexible(
+                            child: Text(
+                              barbershop.name,
+                              style: AppTextStyles.textBold.copyWith(
+                                fontSize: 14,
+                              ),
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                          ),
+                          const SizedBox(width: 16),
+                          TextButton(
+                            onPressed: () {},
+                            // style: TextButton.styleFrom(
+                            //   padding: const EdgeInsets.symmetric(horizontal: 1),
+                            // ),
+                            child: const Text('Editar'),
+                          ),
+                        ],
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    TextButton(
-                      onPressed: () {},
-                      child: const Text('Editar'),
-                    ),
-                    const Spacer(),
                     IconButton(
                       onPressed: () {
                         ref.read(homeAdmVmProvider.notifier).logout();
