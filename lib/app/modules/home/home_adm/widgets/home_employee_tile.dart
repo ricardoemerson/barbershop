@@ -49,7 +49,9 @@ class HomeEmployeeTile extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     ElevatedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/schedule');
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         textStyle: AppTextStyles.textSemiBold.copyWith(fontSize: 12),

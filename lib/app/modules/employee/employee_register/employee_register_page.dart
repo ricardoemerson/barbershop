@@ -77,7 +77,7 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     children: [
-                      const UserAvatar(),
+                      const UserAvatar(showUploadButton: true),
                       const SizedBox(height: 32),
                       Row(
                         children: [

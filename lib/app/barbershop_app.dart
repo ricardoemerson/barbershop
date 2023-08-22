@@ -10,6 +10,7 @@ import 'modules/auth/register/user_register/user_register_page.dart';
 import 'modules/employee/employee_register/employee_register_page.dart';
 import 'modules/home/home_adm/home_adm_page.dart';
 import 'modules/home/home_employee/home_employee_page.dart';
+import 'modules/schedule/schedule_page.dart';
 import 'modules/splash/splash_page.dart';
 
 class BarbershopApp extends StatelessWidget {
@@ -34,6 +35,7 @@ class BarbershopApp extends StatelessWidget {
             '/home/adm': (context) => const HomeAdmPage(),
             '/home/employee': (context) => const HomeEmployeePage(),
             '/employee/register': (context) => const EmployeeRegisterPage(),
+            '/schedule': (context) => const SchedulePage(),
           },
         );
       },

@@ -5,10 +5,12 @@ import '../config/config.dart';
 
 class UserAvatar extends StatelessWidget {
   final String? url;
+  final bool showUploadButton;
 
   const UserAvatar({
     super.key,
     this.url,
+    this.showUploadButton = false,
   });
 
   @override
@@ -30,11 +32,14 @@ class UserAvatar extends StatelessWidget {
           Positioned(
             bottom: -8,
             right: -8,
-            child: IconButton(
-              onPressed: () {},
-              icon: PhosphorIcon(
-                PhosphorIcons.regular.plusCircle,
-                size: 28,
+            child: Offstage(
+              offstage: !showUploadButton,
+              child: IconButton(
+                onPressed: () {},
+                icon: PhosphorIcon(
+                  PhosphorIcons.regular.plusCircle,
+                  size: 28,
+                ),
               ),
             ),
           ),

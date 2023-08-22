@@ -34,7 +34,7 @@ class _TimeButtonState extends State<TimeButton> {
     final disabledTime = enabledTimes != null && !enabledTimes.contains(value);
 
     if (disabledTime) {
-      backgroundColor = AppColors.greyDark;
+      backgroundColor = AppColors.greyDark.withOpacity(.8);
     }
 
     return Padding(

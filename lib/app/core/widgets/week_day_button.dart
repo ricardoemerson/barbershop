@@ -32,7 +32,7 @@ class _WeekDayButtonState extends State<WeekDayButton> {
     final disabledDay = enabledDays != null && !enabledDays.contains(label);
 
     if (disabledDay) {
-      backgroundColor = AppColors.greyDark;
+      backgroundColor = AppColors.greyDark.withOpacity(.8);
     }
 
     return Padding(
