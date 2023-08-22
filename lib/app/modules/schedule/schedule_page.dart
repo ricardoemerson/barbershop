@@ -125,7 +125,7 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
                     ),
                   ),
                   const SizedBox(height: 24),
-                  HoursPanel(
+                  HoursPanel.singleSelection(
                     startTime: 6,
                     endTime: 23,
                     enabledTimes: const [6, 7, 8],

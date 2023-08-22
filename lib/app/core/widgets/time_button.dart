@@ -6,6 +6,8 @@ class TimeButton extends StatefulWidget {
   final String label;
   final int value;
   final List<int>? enabledTimes;
+  final bool singleSelection;
+  final int? selectedTime;
   final ValueChanged<int> onPressed;
 
   const TimeButton({
@@ -14,6 +16,8 @@ class TimeButton extends StatefulWidget {
     required this.value,
     this.enabledTimes,
     required this.onPressed,
+    required this.singleSelection,
+    this.selectedTime,
   });
 
   @override
@@ -25,11 +29,22 @@ class _TimeButtonState extends State<TimeButton> {
 
   @override
   Widget build(BuildContext context) {
+    final TimeButton(:label, :value, :enabledTimes, :singleSelection, :selectedTime, :onPressed) =
+        widget;
+
+    if (singleSelection) {
+      if (selectedTime != null) {
+        if (selectedTime == value) {
+          selected = true;
+        } else {
+          selected = false;
+        }
+      }
+    }
+
     final foregroundColor = selected ? AppColors.white : AppColors.grey;
     var backgroundColor = selected ? AppColors.primary : AppColors.background;
     final borderColor = selected ? AppColors.primary : AppColors.grey;
-
-    final TimeButton(:label, :value, :enabledTimes, :onPressed) = widget;
 
     final disabledTime = enabledTimes != null && !enabledTimes.contains(value);
 
