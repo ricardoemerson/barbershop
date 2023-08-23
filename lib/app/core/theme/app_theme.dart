@@ -93,5 +93,8 @@ sealed class AppTheme {
         color: AppColors.error,
       ),
     ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: AppColors.background,
+    ),
   );
 }

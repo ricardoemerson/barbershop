@@ -1,5 +1,6 @@
 import 'package:asyncstate/widget/async_state_builder.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 
 import 'core/contexts/global_context.dart';
 import 'core/theme/theme.dart';
@@ -8,6 +9,7 @@ import 'modules/auth/login/login_page.dart';
 import 'modules/auth/register/barbershop_register/barbershop_register_page.dart';
 import 'modules/auth/register/user_register/user_register_page.dart';
 import 'modules/employee/employee_register/employee_register_page.dart';
+import 'modules/employee/employee_schedule/employee_schedule_page.dart';
 import 'modules/home/home_adm/home_adm_page.dart';
 import 'modules/home/home_employee/home_employee_page.dart';
 import 'modules/schedule/schedule_page.dart';
@@ -35,8 +37,17 @@ class BarbershopApp extends StatelessWidget {
             '/home/adm': (context) => const HomeAdmPage(),
             '/home/employee': (context) => const HomeEmployeePage(),
             '/employee/register': (context) => const EmployeeRegisterPage(),
+            '/employee/schedule': (context) => const EmployeeSchedulePage(),
             '/schedule': (context) => const SchedulePage(),
           },
+          localizationsDelegates: const [
+            GlobalMaterialLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate
+          ],
+          supportedLocales: const [
+            Locale('pt', 'BR'),
+          ],
         );
       },
     );

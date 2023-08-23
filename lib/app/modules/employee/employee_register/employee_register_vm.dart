@@ -44,9 +44,9 @@ class EmployeeRegisterVm extends _$EmployeeRegisterVm {
   }
 
   Future<void> register({String? name, String? email, String? password}) async {
-    final EmployeeRegisterState(:isRegisterAdmin, :workDays, :workHours) = state;
-
     final asyncLoaderHandler = AsyncLoaderHandler()..start();
+
+    final EmployeeRegisterState(:isRegisterAdmin, :workDays, :workHours) = state;
 
     final IUserRepository(:registerAdminAsEmployee, :registerEmployee) =
         ref.read(userRepositoryProvider);

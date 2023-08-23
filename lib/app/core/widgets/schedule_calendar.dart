@@ -7,11 +7,13 @@ import '../helpers/message_helper.dart';
 import '../theme/theme.dart';
 
 class ScheduleCalendar extends StatefulWidget {
+  final List<String> workDays;
   final VoidCallback onCancel;
   final ValueChanged<DateTime> onSelectDate;
 
   const ScheduleCalendar({
     super.key,
+    required this.workDays,
     required this.onCancel,
     required this.onSelectDate,
   });
@@ -22,6 +24,27 @@ class ScheduleCalendar extends StatefulWidget {
 
 class _ScheduleCalendarState extends State<ScheduleCalendar> {
   DateTime? selectedDay;
+  late final List<int> weekDaysEnabled;
+
+  @override
+  void initState() {
+    super.initState();
+
+    weekDaysEnabled = widget.workDays.map(convertWeekDay).toList();
+  }
+
+  int convertWeekDay(String day) {
+    return switch (day.toLowerCase()) {
+      'dom' => DateTime.sunday,
+      'seg' => DateTime.monday,
+      'ter' => DateTime.tuesday,
+      'qua' => DateTime.wednesday,
+      'qui' => DateTime.thursday,
+      'sex' => DateTime.friday,
+      'sab' => DateTime.saturday,
+      _ => 0
+    };
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +78,9 @@ class _ScheduleCalendarState extends State<ScheduleCalendar> {
             lastDay: DateTime.now().add(const Duration(days: 365 * 10)),
             locale: 'pt_BR',
             availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+            enabledDayPredicate: (day) {
+              return weekDaysEnabled.contains(day.weekday);
+            },
             onDaySelected: (selectedDay, focusedDay) {
               setState(() {
                 this.selectedDay = selectedDay;
@@ -72,6 +98,7 @@ class _ScheduleCalendarState extends State<ScheduleCalendar> {
                 color: AppColors.secondary,
                 shape: BoxShape.circle,
               ),
+              disabledTextStyle: TextStyle(color: Colors.white10),
             ),
           ),
           Row(

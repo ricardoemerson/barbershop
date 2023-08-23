@@ -8,6 +8,8 @@ import '../../data/repositories/auth/auth_repository.dart';
 import '../../data/repositories/auth/i_auth_repository.dart';
 import '../../data/repositories/barbershop/barbershop_repository.dart';
 import '../../data/repositories/barbershop/i_barbershop_repository.dart';
+import '../../data/repositories/schedule/i_schedule_repository.dart';
+import '../../data/repositories/schedule/schedule_repository.dart';
 import '../../data/repositories/user/i_user_repository.dart';
 import '../../data/repositories/user/user_repository.dart';
 import '../../data/services/user_login/i_user_login_service.dart';
@@ -71,3 +73,11 @@ Future<void> logout(LogoutRef ref) async {
 
   Navigator.of(context!).pushNamedAndRemoveUntil('/auth/login', (route) => false);
 }
+
+@Riverpod()
+IScheduleRepository scheduleRepository(ScheduleRepositoryRef ref) =>
+    ScheduleRepository(restClient: ref.read(restClientProvider));
+
+// @Riverpod(keepAlive: true)
+// IScheduleService scheduleService(ScheduleServiceRef ref) =>
+//     ScheduleService(scheduleRepository: ref.read(scheduleRepositoryProvider));

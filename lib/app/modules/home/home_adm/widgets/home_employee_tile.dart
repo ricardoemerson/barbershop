@@ -50,7 +50,7 @@ class HomeEmployeeTile extends StatelessWidget {
                   children: [
                     ElevatedButton(
                       onPressed: () {
-                        Navigator.of(context).pushNamed('/schedule');
+                        Navigator.of(context).pushNamed('/schedule', arguments: employee);
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
@@ -59,12 +59,14 @@ class HomeEmployeeTile extends StatelessWidget {
                       child: const Text('AGENDAR'),
                     ),
                     OutlinedButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        Navigator.of(context).pushNamed('/employee/schedule', arguments: employee);
+                      },
                       style: OutlinedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(horizontal: 10),
                         textStyle: AppTextStyles.textSemiBold.copyWith(fontSize: 12),
                       ),
-                      child: const Text('VER AGENDAR'),
+                      child: const Text('VER AGENDA'),
                     ),
                     InkWell(
                       onTap: () {},
