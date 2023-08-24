@@ -33,6 +33,14 @@ class HomeAdmPage extends ConsumerWidget {
         ),
       ),
       body: homeAdmAsyncValue.when(
+        loading: () => const AppLoader(),
+        error: (error, stackTrace) {
+          log('Erro ao carregar colaboradores', error: error, stackTrace: stackTrace);
+
+          return const Center(
+            child: Text('Erro ao carregar colaboradores.'),
+          );
+        },
         data: (homeState) {
           final HomeAdmState(:employees) = homeState;
 
@@ -55,14 +63,6 @@ class HomeAdmPage extends ConsumerWidget {
             ],
           );
         },
-        error: (error, stackTrace) {
-          log('Erro ao carregar colaboradores', error: error, stackTrace: stackTrace);
-
-          return const Center(
-            child: Text('Erro ao carregar colaboradores.'),
-          );
-        },
-        loading: () => const AppLoader(),
       ),
     );
   }
