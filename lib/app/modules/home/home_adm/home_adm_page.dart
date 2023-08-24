@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
+import '../../../core/providers/application_providers.dart';
 import '../../../core/widgets/app_loader.dart';
 import '../widgets/home_header.dart';
 import 'home_adm_state.dart';
@@ -22,6 +23,7 @@ class HomeAdmPage extends ConsumerWidget {
         onPressed: () async {
           await Navigator.of(context).pushNamed('/employee/register');
 
+          ref.invalidate(getMeProvider);
           ref.invalidate(homeAdmVmProvider);
         },
         child: PhosphorIcon(

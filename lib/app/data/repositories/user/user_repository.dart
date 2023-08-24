@@ -104,7 +104,7 @@ class UserRepository implements IUserRepository {
           return Failure(exception);
       }
 
-      await _restClient.publicRequest.put(
+      await _restClient.authRequest.put(
         '/users/$currentUserId',
         data: {
           'work_days': userData.workDays,
