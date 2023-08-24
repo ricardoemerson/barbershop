@@ -48,6 +48,7 @@ class BarbershopApp extends StatelessWidget {
           supportedLocales: const [
             Locale('pt', 'BR'),
           ],
+          locale: const Locale('pt', 'BR'),
         );
       },
     );

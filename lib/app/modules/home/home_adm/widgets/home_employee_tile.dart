@@ -84,7 +84,7 @@ class HomeEmployeeTile extends StatelessWidget {
                       onTap: () {},
                       borderRadius: BorderRadius.circular(30),
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 4, right: 4, bottom: 4),
+                        padding: const EdgeInsets.all(4),
                         child: PhosphorIcon(
                           PhosphorIcons.regular.trash,
                           color: AppColors.red,
