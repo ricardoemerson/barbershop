@@ -126,6 +126,7 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                                   labelText: 'e-Mail',
                                   hintText: 'Informe o e-Mail do colaborador',
                                 ),
+                                keyboardType: TextInputType.emailAddress,
                                 textInputAction: TextInputAction.next,
                                 validator: isAdmRegister
                                     ? null

@@ -82,6 +82,7 @@ class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
                         labelText: 'e-Mail',
                         hintText: 'Informe seu e-Mail',
                       ),
+                      keyboardType: TextInputType.emailAddress,
                       textInputAction: TextInputAction.next,
                       validator: Validatorless.multiple([
                         Validatorless.required(AppValidatorMessages.required),
