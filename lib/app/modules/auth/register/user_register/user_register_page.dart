@@ -5,6 +5,7 @@ import 'package:validatorless/validatorless.dart';
 import '../../../../core/config/config.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/helpers/message_helper.dart';
+import '../../../../core/widgets/show_password_button.dart';
 import 'user_register_vm.dart';
 
 class UserRegisterPage extends ConsumerStatefulWidget {
@@ -20,6 +21,9 @@ class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
   final _nameEC = TextEditingController();
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
+
+  var showPassword = false;
+  var showConfirmationPassword = false;
 
   @override
   void dispose() {
@@ -93,11 +97,19 @@ class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
                     TextFormField(
                       onTapOutside: (event) => context.unfocus(),
                       controller: _passwordEC,
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Senha',
                         hintText: 'Informe sua senha',
+                        suffixIcon: ShowPasswordButton(
+                          showPassword: showPassword,
+                          toggle: (value) {
+                            setState(() {
+                              showPassword = value;
+                            });
+                          },
+                        ),
                       ),
-                      obscureText: true,
+                      obscureText: !showPassword,
                       textInputAction: TextInputAction.next,
                       validator: Validatorless.multiple([
                         Validatorless.required(AppValidatorMessages.required),
@@ -107,11 +119,19 @@ class _RegisterUserPageState extends ConsumerState<UserRegisterPage> {
                     const SizedBox(height: 24),
                     TextFormField(
                       onTapOutside: (event) => context.unfocus(),
-                      decoration: const InputDecoration(
+                      decoration: InputDecoration(
                         labelText: 'Confirmar senha',
                         hintText: 'Informe sua senha novamente',
+                        suffixIcon: ShowPasswordButton(
+                          showPassword: showConfirmationPassword,
+                          toggle: (value) {
+                            setState(() {
+                              showConfirmationPassword = value;
+                            });
+                          },
+                        ),
                       ),
-                      obscureText: true,
+                      obscureText: !showConfirmationPassword,
                       textInputAction: TextInputAction.next,
                       validator: Validatorless.multiple([
                         Validatorless.required(AppValidatorMessages.required),

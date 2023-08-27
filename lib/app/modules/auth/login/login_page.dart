@@ -6,6 +6,7 @@ import '../../../core/config/config.dart';
 import '../../../core/extensions/extensions.dart';
 import '../../../core/helpers/message_helper.dart';
 import '../../../core/theme/theme.dart';
+import '../../../core/widgets/show_password_button.dart';
 import 'login_state.dart';
 import 'login_vm.dart';
 
@@ -21,6 +22,8 @@ class _LoginPageState extends ConsumerState<LoginPage> {
 
   final _emailEC = TextEditingController();
   final _passwordEC = TextEditingController();
+
+  var showPassword = false;
 
   @override
   void dispose() {
@@ -96,11 +99,19 @@ class _LoginPageState extends ConsumerState<LoginPage> {
                           TextFormField(
                             onTapOutside: (event) => context.unfocus(),
                             controller: _passwordEC,
-                            decoration: const InputDecoration(
+                            decoration: InputDecoration(
                               labelText: 'Senha',
                               hintText: 'Informe sua senha',
+                              suffixIcon: ShowPasswordButton(
+                                showPassword: showPassword,
+                                toggle: (value) {
+                                  setState(() {
+                                    showPassword = value;
+                                  });
+                                },
+                              ),
                             ),
-                            obscureText: true,
+                            obscureText: !showPassword,
                             textInputAction: TextInputAction.next,
                             validator: Validatorless.multiple([
                               Validatorless.required(AppValidatorMessages.required),

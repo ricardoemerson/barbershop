@@ -11,6 +11,7 @@ import '../../../core/providers/application_providers.dart';
 import '../../../core/theme/theme.dart';
 import '../../../core/widgets/app_loader.dart';
 import '../../../core/widgets/hours_panel.dart';
+import '../../../core/widgets/show_password_button.dart';
 import '../../../core/widgets/user_avatar.dart';
 import '../../../core/widgets/week_days_panel.dart';
 import '../../../data/models/barbershop_model.dart';
@@ -32,6 +33,7 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
   final _passwordEC = TextEditingController();
 
   var isAdmRegister = false;
+  var showPassword = false;
 
   @override
   void dispose() {
@@ -139,11 +141,19 @@ class _EmployeeRegisterPageState extends ConsumerState<EmployeeRegisterPage> {
                               TextFormField(
                                 onTapOutside: (event) => context.unfocus(),
                                 controller: _passwordEC,
-                                decoration: const InputDecoration(
+                                decoration: InputDecoration(
                                   labelText: 'Senha',
                                   hintText: 'Informe a senha do colaborador',
+                                  suffixIcon: ShowPasswordButton(
+                                    showPassword: showPassword,
+                                    toggle: (value) {
+                                      setState(() {
+                                        showPassword = value;
+                                      });
+                                    },
+                                  ),
                                 ),
-                                obscureText: true,
+                                obscureText: !showPassword,
                                 textInputAction: TextInputAction.next,
                                 validator: isAdmRegister
                                     ? null
