@@ -1,13 +1,13 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../core/extensions/extensions.dart';
 import '../../../core/providers/application_providers.dart';
 import '../../../core/theme/theme.dart';
 import '../../../core/widgets/app_loader.dart';
-import '../../../core/widgets/user_avatar.dart';
 import '../../../data/models/user_model.dart';
 import '../widgets/home_header.dart';
 import 'home_employee_provider.dart';
@@ -30,7 +30,7 @@ class HomeEmployeePage extends ConsumerWidget {
           );
         },
         data: (user) {
-          final UserModel(:id, :name) = user;
+          final UserModel(:id, :name, :avatar) = user;
 
           return CustomScrollView(
             physics: const BouncingScrollPhysics(),
@@ -44,7 +44,26 @@ class HomeEmployeePage extends ConsumerWidget {
                   padding: const EdgeInsets.all(24),
                   child: Column(
                     children: [
-                      const UserAvatar(),
+                      switch (avatar) {
+                        final avatar? => Image(
+                            image: NetworkImage(avatar),
+                          ),
+                        _ => AdvancedAvatar(
+                            size: 90,
+                            decoration: BoxDecoration(
+                              color: AppColors.greyDark,
+                              borderRadius: BorderRadius.circular(150),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(3, 3),
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
+                            name: name,
+                          )
+                      },
                       Text(
                         name,
                         style: AppTextStyles.textMedium.copyWith(

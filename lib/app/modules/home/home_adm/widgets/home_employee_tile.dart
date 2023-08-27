@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
-import '../../../../core/config/config.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../core/theme/theme.dart';
 import '../../../../data/models/user_model.dart';
@@ -26,15 +26,26 @@ class HomeEmployeeTile extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Image(
-            image: switch (employee.avatar) {
-              final avatar? => NetworkImage(avatar),
-              _ => const AssetImage(AppImages.avatar),
-            } as ImageProvider,
-            width: 56,
-            height: 56,
-            fit: BoxFit.cover,
-          ),
+          switch (employee.avatar) {
+            final avatar? => Image(
+                image: NetworkImage(avatar),
+              ),
+            _ => AdvancedAvatar(
+                size: 56,
+                decoration: BoxDecoration(
+                  color: AppColors.greyDark,
+                  borderRadius: BorderRadius.circular(30),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Colors.black26,
+                      offset: Offset(3, 3),
+                      blurRadius: 6,
+                    ),
+                  ],
+                ),
+                name: employee.name,
+              )
+          },
           const SizedBox(width: 10),
           Expanded(
             child: Column(

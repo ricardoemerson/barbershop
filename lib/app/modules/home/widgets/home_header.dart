@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
 
@@ -46,9 +47,19 @@ class HomeHeader extends ConsumerWidget {
                     IntrinsicWidth(
                       child: Row(
                         children: [
-                          const CircleAvatar(
-                            backgroundColor: AppColors.grey,
-                            child: Text('RE'),
+                          AdvancedAvatar(
+                            decoration: BoxDecoration(
+                              color: AppColors.greyDark,
+                              borderRadius: BorderRadius.circular(150),
+                              boxShadow: const [
+                                BoxShadow(
+                                  color: Colors.black26,
+                                  offset: Offset(3, 3),
+                                  blurRadius: 6,
+                                ),
+                              ],
+                            ),
+                            name: barbershop.name,
                           ),
                           const SizedBox(width: 14),
                           Flexible(

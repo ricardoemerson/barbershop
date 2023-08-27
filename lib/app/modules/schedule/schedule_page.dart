@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_advanced_avatar/flutter_advanced_avatar.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:phosphor_flutter/phosphor_flutter.dart';
@@ -10,7 +11,6 @@ import '../../core/helpers/message_helper.dart';
 import '../../core/theme/theme.dart';
 import '../../core/widgets/hours_panel.dart';
 import '../../core/widgets/schedule_calendar.dart';
-import '../../core/widgets/user_avatar.dart';
 import '../../data/models/user_model.dart';
 import 'schedule_state.dart';
 import 'schedule_vm.dart';
@@ -82,7 +82,26 @@ class _SchedulePageState extends ConsumerState<SchedulePage> {
               padding: const EdgeInsets.all(24),
               child: Column(
                 children: [
-                  const UserAvatar(),
+                  switch (user.avatar) {
+                    final avatar? => Image(
+                        image: NetworkImage(avatar),
+                      ),
+                    _ => AdvancedAvatar(
+                        size: 90,
+                        decoration: BoxDecoration(
+                          color: AppColors.greyDark,
+                          borderRadius: BorderRadius.circular(150),
+                          boxShadow: const [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(3, 3),
+                              blurRadius: 6,
+                            ),
+                          ],
+                        ),
+                        name: user.name,
+                      )
+                  },
                   const SizedBox(height: 25),
                   Text(
                     user.name,
